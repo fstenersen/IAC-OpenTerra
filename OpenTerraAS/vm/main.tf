@@ -2,13 +2,24 @@ module "nettverk" {
   source = "../nettverk"
 }
 
+module "keyvault" {
+  source                   = "../keyvault"
+  keyvault_rgname          = var.keyvault_rgname
+  keyvault_location        = var.keyvault_location
+  keyvault_name            = var.keyvault_name
+  keyvault_access_key_name = var.keyvault_access_key_name
+  
+  vm_brukernavn = var.vm_brukernavn
+  vm_passord    = var.vm_passord
+}
+  
 resource "azurerm_resource_group" "vm-rg" {
   name     = "${var.company_shortname}_vm_rg"
   location = var.vm_rg_location
 }
 
 resource "azurerm_public_ip" "publicip" {
-  name                = "${var.company_shortname}_publicip"
+  name                = "${var.company_shortname}-publicip"
   location            = azurerm_resource_group.vm-rg.location
   resource_group_name = azurerm_resource_group.vm-rg.name
   allocation_method   = "Dynamic"
@@ -31,9 +42,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "VM-${var.company_shortname}-${var.project_name}"
   resource_group_name = azurerm_resource_group.vm-rg.name
   location            = azurerm_resource_group.vm-rg.location
-  size                = "Standard_F2"
-  admin_username      = "${var.company_shortname}-${var.admin_username}"
-  admin_password = "Password1234!"
+  size                = var.vm_size
+  admin_username      = var.vm_brukernavn
+  admin_password      = var.vm_passord
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.nic.id
@@ -45,9 +56,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts"
+    publisher = var.vm_publisher
+    offer     = var.vm_image_offer
+    sku       = var.sku
     version   = "latest"
   }
 

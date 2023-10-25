@@ -15,6 +15,10 @@ resource "azurerm_storage_account" "lagring" {
   location                 = azurerm_resource_group.ot_rg_lagring.location
   account_tier             = var.lagring_acc_tier
   account_replication_type = var.lagring_repl_type
+}
 
-  # Evt noe tags her?
+resource "azurerm_storage_container" "lagring_container" {
+  name                  = var.lagring_container_name
+  storage_account_name  = azurerm_storage_account.lagring.name
+  container_access_type = var.lagring_container_access_type
 }
