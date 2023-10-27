@@ -11,11 +11,11 @@ variable "project_name" {
 }
 
 
-# Lagring variabler
+######## Lagring variabler ########
 variable "lagring_rgname" {
   type        = string
   description = "Navn til ressursgruppen for lagring"
-  default     = "ot_rg_lagring-fls"
+  default     = ""
 }
 
 variable "lagring_location" {
@@ -27,7 +27,7 @@ variable "lagring_location" {
 variable "lagring_base_name" {
   type        = string
   description = "Grunn-navn til for storage account"
-  default     = "otlagring"
+  default     = ""
 }
 
 variable "lagring_repl_type" {
@@ -45,7 +45,7 @@ variable "lagring_acc_tier" {
 variable "lagring_container_name" {
   type        = string
   description = "Navn til storage container"
-  default     = "otcontainer"
+  default     = ""
 }
 
 variable "lagring_container_access_type" {
@@ -61,7 +61,7 @@ variable "lagring_access_key" {
   default     = ""
 }
 
-# Nettverk variabler
+######## Nettverk variabler ########
 variable "virtnet_rg_name" {
   type        = string
   description = "Name of the resource group"
@@ -97,7 +97,7 @@ variable "subnet1_id" {
   default     = ""
 }
 
-# VM variabler
+######## VM variabler ########
 variable "vm_rg_location" {
   description = "Lokasjon for ressursgruppen for virtuelt nettverk"
   default     = "westeurope"
@@ -144,7 +144,7 @@ variable "sku" {
   default     = "20_04-lts"
 }
 
-# Key vault variabler
+######## Key vault variabler ########
 variable "keyvault_rgname" {
   type        = string
   description = "Navn på ressursgruppe for keyvault"

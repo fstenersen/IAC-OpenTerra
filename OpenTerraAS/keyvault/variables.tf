@@ -1,7 +1,7 @@
 variable "keyvault_rgname" {
   type = string
   description = "Navn på ressursgruppe for keyvault"
-  default = "ot_rg_keyvault"
+  default = "rg_keyvault"
 }
 
 variable "keyvault_location" {
@@ -13,25 +13,25 @@ variable "keyvault_location" {
 variable "keyvault_access_key_name" {
   type = string
   description = "Navn på keyvault secret for lagring access key"
-  default = "otkvaccesskey"
+  default = "kv_access_key"
 }
 
 variable "keyvault_name" {
   type = string
   description = "Navn på keyvault"
-  default = "ot-keyvault-flsiac2023"
+  default = "keyvault_name"
 }
 
 variable "vm_brukernavn" {
   type = string
   description = "Brukernavn for VM"
-  default = "otadmin"
+  default = "admin"
 }
 
 variable "vm_passord" {
   type = string
   description = "Passord for VM"
-  default = "Passord1234!"
+  default = "securepassword"
 }
 
 variable "lagring_access_key" {

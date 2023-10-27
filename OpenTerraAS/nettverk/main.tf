@@ -36,11 +36,6 @@ resource "azurerm_subnet_network_security_group_association" "nsg_subnet1_associ
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
-#resource "azurerm_subnet_network_security_group_association" "nsg_subnet2_association" {
-#  subnet_id                 = azurerm_subnet.subnet2.id
-#  network_security_group_id = azurerm_network_security_group.nsg.id
-#}
-
 resource "azurerm_network_security_rule" "innbound_ssh_from_NTNU" {
   name                        = "SSHInboundMyIP"
   priority                    = 100
