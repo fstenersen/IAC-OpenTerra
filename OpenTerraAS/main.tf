@@ -40,8 +40,7 @@ module "vm" {
   virtnet_rg_name   = var.virtnet_rg_name
   virtnet_location  = var.virtnet_location
   virtnet_name      = var.virtnet_name
-  subnet1_name      = var.subnet1_name
-  subnet2_name      = var.subnet2_name
+  subnet1_id        = module.nettverk.subnet1_id
 }
 
 
@@ -51,6 +50,7 @@ module "keyvault" {
   keyvault_location        = var.keyvault_location
   keyvault_name            = var.keyvault_name
   keyvault_access_key_name = var.keyvault_access_key_name
+  lagring_access_key       = var.lagring_access_key
 }
 
 
@@ -66,6 +66,3 @@ output "lagring_rgname_value" {
   value = var.lagring_rgname
 }
 
-output "subnet1_id" {
-  value = module.nettverk.subnet1_id
-}

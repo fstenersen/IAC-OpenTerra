@@ -1,7 +1,7 @@
 variable "lagring_rgname" {
   type = string
   description = "Navn til ressursgruppen for lagring"
-  default = "ot_rg_lagring"
+  default = "ot_rg_lagring-fls"
 }
 
 variable "lagring_location" {

@@ -33,9 +33,15 @@ resource "azurerm_key_vault" "keyvault" {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
 
-    key_permissions = [
-      "Get",
-    ]
+  key_permissions = [
+    "Get",
+    "Create",  # Add "Create" permission if you need to create keys
+    "Import",  # Add "Import" permission if you need to import keys
+    "Delete",
+    "Recover",
+    "Backup",  # Add "Backup" permission if you need to backup keys
+    "Restore",  # Add "Restore" permission if you need to restore keys
+  ]
 
     secret_permissions = [
       "Get",
@@ -46,8 +52,11 @@ resource "azurerm_key_vault" "keyvault" {
 
     ]
 
-    storage_permissions = [
+  storage_permissions = [
       "Get",
+      "List",
+      "Delete",
+      "Purge",
     ]
   }
 }
@@ -67,6 +76,6 @@ resource "azurerm_key_vault_secret" "vm_passord" {
 
 resource "azurerm_key_vault_secret" "lagring_access_key" {
   name         = var.keyvault_access_key_name
-  value        = module.lagring.lagring_access_key
+  value        = var.lagring_access_key
   key_vault_id = azurerm_key_vault.keyvault.id
 }

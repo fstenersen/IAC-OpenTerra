@@ -15,7 +15,7 @@ variable "project_name" {
 variable "lagring_rgname" {
   type        = string
   description = "Navn til ressursgruppen for lagring"
-  default     = "ot_rg_lagring"
+  default     = "ot_rg_lagring-fls"
 }
 
 variable "lagring_location" {
@@ -54,6 +54,13 @@ variable "lagring_container_access_type" {
   default     = "private"
 }
 
+variable "lagring_access_key" {
+  type        = string
+  description = "Access key for lagring"
+  sensitive = true
+  default     = ""
+}
+
 # Nettverk variabler
 variable "virtnet_rg_name" {
   type        = string
@@ -76,13 +83,18 @@ variable "virtnet_name" {
 variable "subnet1_name" {
   type        = string
   description = "Name of the first subnet"
-  default     = "AnsattNettverk-234523452435"
+  default     = "AnsattNettverk"
 }
 
 variable "subnet2_name" {
   type        = string
   description = "Name of the second subnet"
   default     = "Gjestenettverk"
+}
+
+variable "subnet1_id" {
+  description = "ID of subnet number 1"
+  default     = ""
 }
 
 # VM variabler
@@ -151,5 +163,5 @@ variable "keyvault_access_key_name" {
 variable "keyvault_name" {
   type        = string
   description = "Navn på keyvault"
-  default     = "ot-keyvault-flsiac"
+  default     = "ot-keyvault-flsiac2023"
 }

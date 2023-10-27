@@ -38,11 +38,18 @@ variable "virtnet_name" {
 variable "subnet1_name" {
     type    = string
     description = "Name of the first subnet"
+    default = "AnsattNettverk"
 }
 
 variable "subnet2_name" {
     type    = string
     description = "Name of the second subnet"
+    default = "Gjestenettverk"
+}
+
+variable "subnet1_id" {
+  description = "ID of subnet number 1"
+  default = ""
 }
 
 variable "sku" {
@@ -96,7 +103,7 @@ variable "keyvault_access_key_name" {
 variable "keyvault_name" {
   type = string
   description = "Navn på keyvault"
-  default = "ot-keyvault-flsiac"
+  default = "ot-keyvault-flsiac2023"
 }
 
 variable "vm_brukernavn" {

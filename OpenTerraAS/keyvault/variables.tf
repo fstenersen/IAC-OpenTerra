@@ -19,7 +19,7 @@ variable "keyvault_access_key_name" {
 variable "keyvault_name" {
   type = string
   description = "Navn på keyvault"
-  default = "ot-keyvault-flsiac"
+  default = "ot-keyvault-flsiac2023"
 }
 
 variable "vm_brukernavn" {
@@ -32,4 +32,11 @@ variable "vm_passord" {
   type = string
   description = "Passord for VM"
   default = "Passord1234!"
+}
+
+variable "lagring_access_key" {
+  type = string
+  description = "Access key for lagring"
+  sensitive = true
+  default = "" 
 }

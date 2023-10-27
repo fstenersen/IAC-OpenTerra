@@ -20,7 +20,7 @@ module "ResourceGroup" {
 module "StorageAccount" {
   source              = "./StorageAccount"
   base_name           = "modul04"
-  rgname              = module.ResourceGroup.rg_name_output
+  rgname              = module.ResourceGroup.rg_name_output # FIX_DETTE
   location            = "West Europe"
 }
 

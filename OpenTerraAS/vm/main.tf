@@ -32,7 +32,7 @@ resource "azurerm_network_interface" "nic" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = module.nettverk.subnet1_id
+    subnet_id                     = var.subnet1_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id = azurerm_public_ip.publicip.id
   }
