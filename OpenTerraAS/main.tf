@@ -66,3 +66,6 @@ output "lagring_rgname_value" {
   value = var.lagring_rgname
 }
 
+output "public_ip_address_id" {
+  value = module.vm.public_ip_address_id.ip_address
+}

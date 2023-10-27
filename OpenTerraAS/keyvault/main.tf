@@ -7,10 +7,6 @@ provider "azurerm" {
   }
 }
 
-module "lagring" {
-  source = "../lagring"
-}
-
 data "azurerm_client_config" "current" {}
   
 resource "azurerm_resource_group" "key_vault_rg" {

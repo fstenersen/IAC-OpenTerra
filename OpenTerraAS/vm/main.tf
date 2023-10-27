@@ -1,18 +1,3 @@
-module "nettverk" {
-  source = "../nettverk"
-}
-
-module "keyvault" {
-  source                   = "../keyvault"
-  keyvault_rgname          = var.keyvault_rgname
-  keyvault_location        = var.keyvault_location
-  keyvault_name            = var.keyvault_name
-  keyvault_access_key_name = var.keyvault_access_key_name
-  
-  vm_brukernavn = var.vm_brukernavn
-  vm_passord    = var.vm_passord
-}
-  
 resource "azurerm_resource_group" "vm-rg" {
   name     = "${var.company_shortname}_vm_rg"
   location = var.vm_rg_location
