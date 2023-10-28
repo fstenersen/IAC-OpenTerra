@@ -2,13 +2,11 @@
 variable "company_shortname" {
   type        = string
   description = "Navn på firmaet"
-  default     = "OT"
 }
 
 variable "project_name" {
   type        = string
   description = "Navn på prosjektet"
-  default     = "konsulentprosjekt"
 }
 
 ######## Backend variabler ########

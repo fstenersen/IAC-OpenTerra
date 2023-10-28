@@ -15,6 +15,17 @@ provider "azurerm" {
   }
 }
 
+module "backend" {
+  source = "./backend"
+  backend_rg_name = var.backend_rg_name
+  backend_rg_location = var.backend_rg_location
+  backend_sa_basename = var.backend_sa_basename
+  backend_container_name = var.backend_container_name
+  backend_kv_basename = var.backend_kv_basename
+  backend_kv_location = var.backend_kv_location
+  backend_sa_access_key_name = var.backend_sa_access_key_name
+}
+
 module "lagring" {
   source            = "./lagring"
   lagring_rgname    = var.lagring_rgname

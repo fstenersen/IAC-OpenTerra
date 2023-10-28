@@ -10,12 +10,12 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 resource "random_pet" "sa_name" {
-  length    = 3
+  length    = 1
   separator = "-"
 }
 
 resource "random_pet" "kv_name" {
-  length = 3
+  length = 1
   separator = "-"
 }
 
@@ -25,7 +25,7 @@ resource "azurerm_resource_group" "backend_rg" {
 }
 
 resource "azurerm_storage_account" "backend_sa" {
-  name = "${lower(var.backend_sa_basename)}${random_pet.sa_name.id})}"
+  name = "${lower(var.backend_sa_basename)}${random_pet.sa_name.id}"
   resource_group_name = azurerm_resource_group.backend_rg.name
   location = azurerm_resource_group.backend_rg.location
   account_tier = "Standard"
