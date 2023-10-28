@@ -1,3 +1,4 @@
+######## Generelle variabler ########
 variable "company_shortname" {
   type        = string
   description = "Navn på firmaet"
@@ -8,6 +9,42 @@ variable "project_name" {
   type        = string
   description = "Navn på prosjektet"
   default     = "konsulentprosjekt"
+}
+
+######## Backend variabler ########
+variable "backend_rg_name" {
+  type        = string
+  description = "Name of the backend resource group"
+}
+
+variable "backend_rg_location" {
+  type        = string
+  description = "Location of the backend resource group"
+}
+
+variable "backend_sa_basename" {
+  type        = string
+  description = "Name of the backend storage account"
+}
+
+variable "backend_container_name" {
+  type        = string
+  description = "Name of the backend storage container"
+}
+
+variable "backend_kv_basename" {
+  type        = string
+  description = "Name of the backend key vault"
+}
+
+variable "backend_kv_location" {
+  type        = string
+  description = "Location of the backend key vault"
+}
+
+variable "backend_sa_access_key_name" {
+  type        = string
+  description = "Name of the backend storage account access key"
 }
 
 
@@ -57,9 +94,10 @@ variable "lagring_container_access_type" {
 variable "lagring_access_key" {
   type        = string
   description = "Access key for lagring"
-  sensitive = true
+  sensitive   = true
   default     = ""
 }
+
 
 ######## Nettverk variabler ########
 variable "virtnet_rg_name" {
@@ -96,6 +134,7 @@ variable "subnet1_id" {
   description = "ID of subnet number 1"
   default     = ""
 }
+
 
 ######## VM variabler ########
 variable "vm_rg_location" {
@@ -143,6 +182,7 @@ variable "sku" {
   description = "SKU for imaget"
   default     = "20_04-lts"
 }
+
 
 ######## Key vault variabler ########
 variable "keyvault_rgname" {
