@@ -5,7 +5,7 @@ resource "random_string" "tilfeldig_streng" {
 }
 
 resource "azurerm_resource_group" "ot_rg_lagring" {
-  name     = var.lagring_rgname
+  name     = local.lagring_rgname
   location = var.lagring_location
 }
 

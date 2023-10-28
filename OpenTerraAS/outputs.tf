@@ -7,7 +7,7 @@ output "subnet1_name_value" {
 }
 
 output "lagring_rgname_value" {
-  value = var.lagring_rgname
+  value = module.lagring.lagring_rgname_value
 }
 
 output "VM" {
