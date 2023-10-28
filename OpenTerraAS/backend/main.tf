@@ -25,7 +25,9 @@ resource "azurerm_resource_group" "backend_rg" {
 }
 
 resource "azurerm_storage_account" "backend_sa" {
-  name = "${lower(var.backend_sa_basename)}${random_pet.sa_name.id}"
+  # Hardcoded sa name so backend can find it (sa name is not known until after creation)
+  #name = "${lower(var.backend_sa_basename)}${random_pet.sa_name.id}"
+  name = var.backend_sa_basename
   resource_group_name = azurerm_resource_group.backend_rg.name
   location = azurerm_resource_group.backend_rg.location
   account_tier = "Standard"
