@@ -31,4 +31,5 @@ variable "backend_kv_location" {
 variable "backend_sa_access_key_name" {
     type = string
     description = "Name of the backend storage account access key"
+    sensitive = true
 }
