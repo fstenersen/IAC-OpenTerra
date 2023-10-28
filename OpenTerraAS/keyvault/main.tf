@@ -25,34 +25,21 @@ resource "azurerm_key_vault" "keyvault" {
 
   sku_name = "standard"
 
+
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Get",
-    "Create",  # Add "Create" permission if you need to create keys
-    "Import",  # Add "Import" permission if you need to import keys
-    "Delete",
-    "Recover",
-    "Backup",  # Add "Backup" permission if you need to backup keys
-    "Restore",  # Add "Restore" permission if you need to restore keys
-  ]
-
-    secret_permissions = [
-      "Get",
-      "Delete",  # Add "Delete" permission to allow destruction of secrets, fixes errors when destroying the keyvault
-      "Set",   # Ensure "set" permission is granted for setting secrets
-      "Purge",   # Ensure "Purge" permission is granted for permanently deleting secrets
-      "Recover",  # Ensure "Recover" permission is granted for recovering deleted secrets
-
+    key_permissions = [
+      "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
     ]
 
-  storage_permissions = [
-      "Get",
-      "List",
-      "Delete",
-      "Purge",
+    secret_permissions = [
+      "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+    ]
+
+    storage_permissions = [
+      "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
     ]
   }
 }
