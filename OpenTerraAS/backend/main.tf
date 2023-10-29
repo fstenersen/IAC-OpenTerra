@@ -20,14 +20,18 @@ resource "random_pet" "kv_name" {
 }
 
 resource "azurerm_resource_group" "backend_rg" {
+  # Only create a resource group if not using the default workspace, this is to avoid creating a backend resource group for each workspace
+  # This is so that we can use the same backend resource group for all workspaces
+  # count    = terraform.workspace == "default" ? 1 : 0
   name = var.backend_rg_name
   location = var.backend_rg_location
 }
 
 resource "azurerm_storage_account" "backend_sa" {
   # Hardcoded sa name so backend can find it (sa name is not known until after creation)
-  #name = "${lower(var.backend_sa_basename)}${random_pet.sa_name.id}"
-  name = var.backend_sa_basename
+  name = "backendsa-termite"
+  
+  # name = local.backend_sa_basename
   resource_group_name = azurerm_resource_group.backend_rg.name
   location = azurerm_resource_group.backend_rg.location
   account_tier = "Standard"
