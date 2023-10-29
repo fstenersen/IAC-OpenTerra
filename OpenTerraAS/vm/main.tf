@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "vm-rg" {
-  name     = "${var.company_shortname}_vm_rg"
+  name     = local.vm_rg_name
   location = var.vm_rg_location
 }
 

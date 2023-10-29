@@ -10,7 +10,7 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
   
 resource "azurerm_resource_group" "key_vault_rg" {
-  name     = var.keyvault_rgname
+  name     = local.keyvault_rgname
   location = var.keyvault_location
 }
 

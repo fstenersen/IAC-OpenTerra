@@ -136,6 +136,11 @@ variable "subnet1_id" {
 
 
 ######## VM variabler ########
+variable "vm_rg_name" {
+  type        = string
+  description = "Navn på ressursgruppen for virtuelt nettverk"
+}
+
 variable "vm_rg_location" {
   description = "Lokasjon for ressursgruppen for virtuelt nettverk"
   default     = "westeurope"

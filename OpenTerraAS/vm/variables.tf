@@ -4,6 +4,12 @@ variable "company_shortname" {
   default     = ""
 }
 
+variable "vm_rg_name" {
+  type        = string
+  description = "Navn på ressursgruppen for virtuelt nettverk"
+}
+
+
 variable "project_name" {
   type        = string
   description = "Navn på prosjektet"

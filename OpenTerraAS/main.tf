@@ -27,7 +27,7 @@ module "nettverk" {
 
 module "vm" {
   source            = "./vm"
-  company_shortname = var.company_shortname
+  vm_rg_name        = var.vm_rg_name
   vm_rg_location    = var.vm_rg_location
   nic_name          = var.nic_name
   virtnet_rg_name   = var.virtnet_rg_name

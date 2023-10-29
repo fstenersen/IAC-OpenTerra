@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "ot_rg_lagring" {
 }
 
 resource "azurerm_storage_account" "lagring" {
-  name                     = "${lower(var.lagring_base_name)}${random_string.tilfeldig_streng.result}"
+  name                     = local.lagring_sa_name
   resource_group_name      = azurerm_resource_group.ot_rg_lagring.name
   location                 = azurerm_resource_group.ot_rg_lagring.location
   account_tier             = var.lagring_acc_tier
@@ -18,7 +18,7 @@ resource "azurerm_storage_account" "lagring" {
 }
 
 resource "azurerm_storage_container" "lagring_container" {
-  name                  = var.lagring_container_name
+  name                  = local.lagring_container_name
   storage_account_name  = azurerm_storage_account.lagring.name
   container_access_type = var.lagring_container_access_type
 }

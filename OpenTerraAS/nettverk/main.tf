@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "virt_net_rg" {
-  name     = var.virtnet_rg_name
+  name     = local.virtnet_rg_name
   location = var.virtnet_location
 }
 
