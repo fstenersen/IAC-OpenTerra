@@ -29,7 +29,7 @@ resource "azurerm_resource_group" "backend_rg" {
 
 resource "azurerm_storage_account" "backend_sa" {
   # Hardcoded sa name so backend can find it (sa name is not known until after creation)
-  name = "backendsa-termite"
+  name = "backendsatermite"
   
   # name = local.backend_sa_basename
   resource_group_name = azurerm_resource_group.backend_rg.name

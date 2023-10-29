@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "vm-rg" {
 }
 
 resource "azurerm_public_ip" "publicip" {
-  name                = "${var.company_shortname}-publicip"
+  name                = "${var.nic_name}-publicip"
   location            = azurerm_resource_group.vm-rg.location
   resource_group_name = azurerm_resource_group.vm-rg.name
   allocation_method   = "Dynamic"
@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "VM-${var.company_shortname}-${var.project_name}"
+  name                = "VM-${var.project_name}"
   resource_group_name = azurerm_resource_group.vm-rg.name
   location            = azurerm_resource_group.vm-rg.location
   size                = var.vm_size
