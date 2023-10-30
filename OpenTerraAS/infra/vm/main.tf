@@ -1,6 +1,8 @@
 resource "azurerm_resource_group" "vm-rg" {
   name     = local.vm_rg_name
   location = var.vm_rg_location
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_public_ip" "publicip" {
@@ -8,6 +10,8 @@ resource "azurerm_public_ip" "publicip" {
   location            = azurerm_resource_group.vm-rg.location
   resource_group_name = azurerm_resource_group.vm-rg.name
   allocation_method   = "Dynamic"
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -21,6 +25,8 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id = azurerm_public_ip.publicip.id
   }
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {

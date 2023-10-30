@@ -12,6 +12,8 @@ data "azurerm_client_config" "current" {}
 resource "azurerm_resource_group" "key_vault_rg" {
   name     = local.keyvault_rgname
   location = var.keyvault_location
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_key_vault" "keyvault" {
@@ -42,6 +44,8 @@ resource "azurerm_key_vault" "keyvault" {
       "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
     ]
   }
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_key_vault_secret" "vm_brukernavn" {

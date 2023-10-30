@@ -1,12 +1,16 @@
 resource "azurerm_resource_group" "virt_net_rg" {
   name     = local.virtnet_rg_name
   location = var.virtnet_location
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_network_security_group" "nsg" {
   name                = var.virtnet_name
   location            = azurerm_resource_group.virt_net_rg.location
   resource_group_name = azurerm_resource_group.virt_net_rg.name
+  
+  tags     = local.common_tags
 }
 
 resource "azurerm_virtual_network" "virt_net" {
@@ -15,6 +19,8 @@ resource "azurerm_virtual_network" "virt_net" {
   resource_group_name = azurerm_resource_group.virt_net_rg.name
   address_space       = ["10.0.0.0/16"]
   dns_servers         = ["10.0.0.4", "10.0.0.5"]
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_subnet" "subnet1" {

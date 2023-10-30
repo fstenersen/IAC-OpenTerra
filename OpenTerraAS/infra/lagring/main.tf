@@ -7,6 +7,8 @@ resource "random_string" "tilfeldig_streng" {
 resource "azurerm_resource_group" "ot_rg_lagring" {
   name     = local.lagring_rgname
   location = var.lagring_location
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_storage_account" "lagring" {
@@ -15,6 +17,8 @@ resource "azurerm_storage_account" "lagring" {
   location                 = azurerm_resource_group.ot_rg_lagring.location
   account_tier             = var.lagring_acc_tier
   account_replication_type = var.lagring_repl_type
+
+  tags     = local.common_tags
 }
 
 resource "azurerm_storage_container" "lagring_container" {
