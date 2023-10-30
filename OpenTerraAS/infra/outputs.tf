@@ -13,6 +13,6 @@ output "lagring_rgname_value" {
 output "VM" {
   value = {
     Name = module.vm.vm_name
-    IP = module.vm.public_ip_address_id.ip_address
+    IP   = module.vm.public_ip_address_id.ip_address
   }
 }

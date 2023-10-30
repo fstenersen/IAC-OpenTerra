@@ -43,7 +43,7 @@ variable "backend_kv_location" {
 variable "backend_sa_access_key_name" {
   type        = string
   description = "Name of the backend storage account access key"
-  sensitive = true
+  sensitive   = true
 }
 
 
@@ -173,14 +173,14 @@ variable "vm_brukernavn" {
   type        = string
   description = "Brukernavn for VM"
   default     = "otadmin"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "vm_passord" {
   type        = string
   description = "Passord for VM"
   default     = "Passord1234!"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "sku" {
@@ -204,7 +204,7 @@ variable "keyvault_location" {
 variable "keyvault_access_key_name" {
   type        = string
   description = "Navn på keyvault secret for lagring access key"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "keyvault_name" {
