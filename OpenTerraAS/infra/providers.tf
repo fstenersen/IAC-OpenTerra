@@ -10,7 +10,7 @@ terraform {
     resource_group_name  = "rg_backend"
     storage_account_name = "backendsatermite"
     container_name       = "tfstate"
-    key                  = "backend.terraform.tfstate"
+    key                  = "infra.terraform.tfstate"
   }
 }
 
