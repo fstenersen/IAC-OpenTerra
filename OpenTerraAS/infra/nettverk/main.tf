@@ -55,3 +55,5 @@ resource "azurerm_network_security_rule" "innbound_ssh_from_NTNU" {
   resource_group_name         = azurerm_resource_group.virt_net_rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
+
+# Test
