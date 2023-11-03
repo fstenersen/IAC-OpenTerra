@@ -49,6 +49,8 @@ jobs:
           git add -A
           git commit -m "Automatically formatted Terraform code" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         working-directory: ${{ env.WORKING_DIR }}
 
       # Runs a single command using the runners shell
