@@ -34,23 +34,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs terraform format to ensure nicely formated code
+      # Runs terraform format to check if it is nicely formated code
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt
-        working-directory: ${{ env.WORKING_DIR }}
-  
-      # Commit and push the changes if any
-      - name: Commit and push if needed
-        run: |
-          git diff
-          git config --global user.name 'OpenTerra GitHub Actions'
-          git config --global user.email 'github-actions@github.com'
-          git add -A
-          git commit -m "Automatically formatted Terraform code" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: terraform fmt -check
         working-directory: ${{ env.WORKING_DIR }}
 
       # Runs a single command using the runners shell
