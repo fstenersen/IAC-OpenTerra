@@ -66,5 +66,3 @@ resource "azurerm_key_vault_secret" "lagring_access_key" {
     value        = var.lagring_access_key
         key_vault_id = azurerm_key_vault.keyvault.id
 }
-
-# Test
