@@ -1,5 +1,7 @@
-name: Terraform Linter
+# Workflow Name: Terraform Linter
+name: Lint terraform with tflint
 
+# This workflow is triggered after the "Terraform Validate" workflow completes or when manually triggered.
 on:
   workflow_run:
     workflows: ["Terraform Validate"]
@@ -7,6 +9,7 @@ on:
       - completed
   workflow_dispatch:
 
+# Environment variables used throughout the job.
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -16,37 +19,41 @@ env:
 
 jobs:
   tflint:
-    name: 'tflint-${{ matrix.os }}'
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    # Job Name: tflint
+    # Description: This job lints the Terraform code.
+    name: 'tflint'
+    runs-on: ubuntu-latest
 
     steps:
+    # Checkout the repository's source code.
     - name: Checkout source code
       uses: actions/checkout@v2
 
+    # Cache the TFLint plugins directory to speed up subsequent runs.
     - name: Cache plugin dir
       uses: actions/cache@v2
       with:
         path: ~/.tflint.d/plugins
-        key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
+        key: ubuntu-tflint-${{ hashFiles('.tflint.hcl') }}
 
+    # Set up the specific version of TFLint.
     - name: Setup TFLint
       uses: terraform-linters/setup-tflint@v3
       with:
         tflint_version: v0.44.1
 
+    # Display the version of TFLint being used.
     - name: Show version
       run: tflint --version
 
+    # Initialize TFLint. This step fetches necessary plugins based on the configuration.
     - name: Init TFLint
       run: tflint --init
       env:
-        # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+        # Using a GitHub token to avoid rate-limiting when fetching plugins.
         GITHUB_TOKEN: ${{ github.token }}
 
+    # Run TFLint on the Terraform code with a compact format for the output.
     - name: Run TFLint
       run: tflint -f compact
       working-directory: ${{ env.WORKING_DIR }}
