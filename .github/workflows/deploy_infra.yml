@@ -33,10 +33,10 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
       
       # Generate a plan for Terraform changes
-      #- name: Terraform plan
-      #  id: plan
-      #  run: terraform plan
-      #  working-directory: ${{ env.WORKING_DIR }}
+      - name: Terraform plan
+        id: plan
+        run: terraform plan
+        working-directory: ${{ env.WORKING_DIR }}
       
       # Apply Terraform changes
       - name: Terraform apply
