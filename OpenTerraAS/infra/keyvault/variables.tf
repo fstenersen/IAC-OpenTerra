@@ -20,7 +20,7 @@ variable "keyvault_access_key_name" {
 variable "keyvault_name" {
   type = string
   description = "Navn på keyvault"
-  default = "keyvault_name"
+  default = "keyvault"
 }
 
 variable "vm_brukernavn" {
