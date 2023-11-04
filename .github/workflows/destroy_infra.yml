@@ -34,6 +34,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: 'Terraform init'
+        id: init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIR }}       
       
     # Destroys the infrastructure if the commit message has the word destroy in it
       - name: 'Check last commit message'
