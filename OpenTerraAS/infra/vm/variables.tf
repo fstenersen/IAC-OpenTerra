@@ -1,20 +1,17 @@
 variable "company_shortname" {
   type        = string
   description = "Navn på firmaet"
-  default     = "OT"
 }
 
 variable "vm_rg_name" {
   type        = string
   description = "Navn på ressursgruppen for virtuelt nettverk"
-  default = "ot_rg_vm"
 }
 
 
 variable "project_name" {
   type        = string
   description = "Navn på prosjektet"
-  default     = "Konsulentprosjekt"
 }
 
 variable "vm_rg_location" {
@@ -24,13 +21,11 @@ variable "vm_rg_location" {
 
 variable "nic_name" {
     description = "Navn på nettverkskortet"
-    default     = "Nettverkskort"
 }
 
 variable "virtnet_rg_name" {
     type    = string
     description = "Name of the resource group"
-    default = "ot_rg_virtnet"
 }
 
 variable "virtnet_location" {
@@ -42,7 +37,6 @@ variable "virtnet_location" {
 variable "virtnet_name" {
     type    = string
     description = "Name of the virtual network"
-    default = "operaterra-virt-net"
 }
 
 variable "subnet1_name" {
@@ -95,7 +89,6 @@ variable "vm_public_ip" {
 variable "keyvault_rgname" {
   type = string
   description = "Navn på ressursgruppe for keyvault"
-  default = "rg_keyvault"
 }
 
 variable "keyvault_location" {
@@ -114,19 +107,16 @@ variable "keyvault_access_key_name" {
 variable "keyvault_name" {
   type = string
   description = "Navn på keyvault"
-  default = "keyvault_name"
 }
 
 variable "vm_brukernavn" {
   type = string
   description = "Brukernavn for VM"
-  default = "vmadmin"
   sensitive = true
 }
 
 variable "vm_passord" {
   type = string
   description = "Passord for VM"
-  default = "Securepassword!"
   sensitive = true
 }
