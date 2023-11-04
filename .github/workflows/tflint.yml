@@ -25,7 +25,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./course materials/module07/demo-infra
+      WORKING_DIR: ./OpenTerraAS/infra
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
