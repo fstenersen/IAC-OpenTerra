@@ -13,10 +13,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
-    # Specify the environment for this job
-    environment: Production
-    
     
     name: 'deploy infrastructure'
     env:
