@@ -13,6 +13,10 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+
+    # Specify the environment for this job
+    environment: Production
+    
     
     name: 'deploy infrastructure'
     env:
@@ -30,16 +34,16 @@ jobs:
       - name: Terraform init
         id: init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR == Production}}
+        working-directory: ${{ env.WORKING_DIR }}
       
       # Generate a plan for Terraform changes
       - name: Terraform plan
         id: plan
         run: terraform plan
-        working-directory: ${{ env.WORKING_DIR == Production }}
+        working-directory: ${{ env.WORKING_DIR }}
       
       # Apply Terraform changes
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
-        working-directory: ${{ env.WORKING_DIR == Production }}
+        working-directory: ${{ env.WORKING_DIR }}
