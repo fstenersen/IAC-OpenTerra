@@ -6,10 +6,7 @@ name: Validate Infrastructure
 on:
   # Triggers the workflow on push or pull request events
   push:
-    branches:
-      - 'dev'
-      - 'stage'
-      - 'prod'
+    branches-ignore:
       - 'main'
     paths:
       - 'OpenTerraAS/infra/**'
