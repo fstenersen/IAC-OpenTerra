@@ -1,49 +1,61 @@
-# This is a basic workflow to help validate your Terraform configuration
+# Workflow Name: Terraform Linter
+# Description: This workflow is designed to lint Terraform code to ensure it adheres to best practices.
 
-name: Validate Infrastructure
+name: Lint terraform with tflint
 
-# Controls when the workflow will run
+# This workflow is triggered after the "Terraform Validate" workflow completes or when manually triggered.
 on:
-  # Triggers the workflow on push or pull request events
-  push:
-    branches-ignore:
-      - 'main'
-    paths:
-      - 'OpenTerraAS/infra/**'
+  workflow_run:
+    workflows: ["Terraform Validate"]
+    types:
+      - completed
+  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Environment variables used throughout the job.
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  WORKING_DIR: ./OpenTerraAS/infra
+
 jobs:
-  # This workflow contains a single job called "validate"
-  terraform:
-    name: 'Validate'
-    # The type of runner that the job will run on
+  tflint:
+    # Job Name: tflint
+    # Description: This job lints the Terraform code.
+    name: 'tflint'
     runs-on: ubuntu-latest
-    
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./OpenTerraAS/infra
-      
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    # Checkout the repository's source code.
+    - name: Checkout source code
+      uses: actions/checkout@v2
 
-      # Runs terraform format to check if it is nicely formated code
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-        working-directory: ${{ env.WORKING_DIR }}
+    # Cache the TFLint plugins directory to speed up subsequent runs.
+    - name: Cache plugin dir
+      uses: actions/cache@v2
+      with:
+        path: ~/.tflint.d/plugins
+        key: ubuntu-tflint-${{ hashFiles('.tflint.hcl') }}
 
-      # Runs a single command using the runners shell
-      - name: Terraform init
-        id: init
-        run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}          
+    # Set up the specific version of TFLint.
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v3
+      with:
+        tflint_version: v0.44.1
 
-      - name: Terraform validate
-        id: validate
-        run: terraform validate
-        working-directory: ${{ env.WORKING_DIR }}
+    # Display the version of TFLint being used.
+    - name: Show version
+      run: tflint --version
+
+    # Initialize TFLint. This step fetches necessary plugins based on the configuration.
+    - name: Init TFLint
+      run: tflint --init
+      env:
+        # Using a GitHub token to avoid rate-limiting when fetching plugins.
+        GITHUB_TOKEN: ${{ github.token }}
+
+    # Run TFLint on the Terraform code with a compact format for the output.
+    - name: Run TFLint
+      run: tflint -f compact
+      working-directory: ${{ env.WORKING_DIR }}
