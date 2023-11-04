@@ -9,7 +9,9 @@ on:
       - 'main'
     paths:
       - 'OpenTerraAS/infra/**'
-      
+
+environment: Production
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
