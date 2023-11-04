@@ -30,16 +30,16 @@ jobs:
       - name: Terraform init
         id: init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR == Production}}
       
       # Generate a plan for Terraform changes
       - name: Terraform plan
         id: plan
         run: terraform plan
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR == Production }}
       
       # Apply Terraform changes
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR == Production }}
