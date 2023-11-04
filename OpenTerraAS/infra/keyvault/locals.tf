@@ -1,7 +1,7 @@
 locals {
-  workspaces_suffix = terraform.workspace == "default" ? "" : "-${terraform.workspace}"
+  workspaces_suffix = terraform.workspace == "default" ? "" : "${terraform.workspace}"
 
-  keyvault_rgname = "${var.keyvault_rgname}${local.workspaces_suffix}"
+  keyvault_rgname = "${var.keyvault_rgname}-${local.workspaces_suffix}"
   keyvault_name = "${var.keyvault_name}${local.workspaces_suffix}"
 
   common_tags = {
