@@ -55,3 +55,4 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   tags = local.common_tags
 }
+#Random test
