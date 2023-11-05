@@ -9,10 +9,11 @@ on:
       - 'main'
     paths:
       - 'OpenTerraAS/infra/**'
-      
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    environment: Production
     
     name: 'deploy infrastructure'
     env:
