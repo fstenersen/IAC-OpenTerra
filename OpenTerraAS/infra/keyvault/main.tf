@@ -62,7 +62,7 @@ resource "azurerm_key_vault_secret" "vm_passord" {
 
 
 resource "azurerm_key_vault_secret" "lagring_access_key" {
-  name         = var.keyvault_access_key_name
+  name         = local.keyvault_access_key_name
   value        = var.lagring_access_key
   key_vault_id = azurerm_key_vault.keyvault.id
 }
