@@ -43,7 +43,7 @@ jobs:
       - name: 'Check last commit message'
         id: commit
         run: echo "::set-output name=message::$(git log --format=%B -n 1)"
-      - name: 'Conditionally run Terraform action'
+      - name: 'Conditionally run Terraform destroy'
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             terraform destroy -auto-approve
