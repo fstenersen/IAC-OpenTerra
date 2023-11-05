@@ -6,7 +6,7 @@ on:
 
 jobs:
     terraform-deploy:
-        uses: ./.github/workflows/terraform_deploy.yml
+        uses: ./.github/workflows/deploy_infra.yml
         with:
             WORKSPACE: prod
             environment: production
