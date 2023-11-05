@@ -34,5 +34,3 @@ module "keyvault" {
   keyvault_access_key_name = var.keyvault_access_key_name
   lagring_access_key       = var.lagring_access_key
 }
-
-# Destroy test
