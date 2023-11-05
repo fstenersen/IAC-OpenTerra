@@ -1,0 +1,13 @@
+name: Production
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+    terraform-deploy:
+        uses: ./.github/workflows/terraform_deploy.yml
+        with:
+            WORKSPACE: prod
+        secrets:
+            AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
