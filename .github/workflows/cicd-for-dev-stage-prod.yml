@@ -1,9 +1,8 @@
-name: Deploy infrastructure
+name: Deploy infrastructure for dev, stage, and prod
 
 on:
   push:
     branches:
-      - 'main'
       - 'dev'
       - 'stage'
       - 'prod'
