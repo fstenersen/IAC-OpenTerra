@@ -1,24 +1,11 @@
 name: Production
-
 on:
   push:
     branches:
       - 'main'
 
 jobs:
-  terraform-deploy:
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Deploy with Terraform
+    terraform-deploy:
         uses: ./.github/workflows/deploy_infra.yml
         with:
             WORKSPACE: prod
-        env:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}

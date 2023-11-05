@@ -9,11 +9,7 @@ on:
       WORKSPACE:
         required: true
         type: string
-
-    secrets:
-      AZURE_CREDENTIALS:
-        required: true
-
+        
 jobs:
   terraform:
     runs-on: ubuntu-latest
