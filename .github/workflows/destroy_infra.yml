@@ -31,21 +31,51 @@ jobs:
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      - name: 'Terraform init'
-        id: init
-        run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}       
-      
-    # Destroys the infrastructure if the commit message has the word destroy in it
+      # Destroys the infrastructure if the commit message has the word destroy in it
       - name: 'Check last commit message'
         id: commit
         run: echo "::set-output name=message::$(git log --format=%B -n 1)"
-      - name: 'Conditionally run Terraform destroy'
+      
+      # Destroy default workspace if commit message contains "destroy" and "default"
+      - name: 'Conditionally run Terraform destroy for default workspace'
         run: |
-          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"default"* ]]; then
+            # Select the default workspace
+            terraform workspace select default
+            # Destroy the infrastructure in the default workspace
             terraform destroy -auto-approve
           fi
-        working-directory: ${{ env.WORKING_DIR }} 
+        working-directory: ${{ env.WORKING_DIR }}
+      
+      # Destroy dev workspace if commit message contains "destroy" and "dev"
+      - name: 'Conditionally run Terraform destroy for dev workspace'
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"dev"* ]]; then
+            # Select the dev workspace
+            terraform workspace select dev
+            # Destroy the infrastructure in the dev workspace
+            terraform destroy -auto-approve
+          fi
+        working-directory: ${{ env.WORKING_DIR }}
+      
+      # Destroy stage workspace if commit message contains "destroy" and "stage"
+      - name: 'Conditionally run Terraform destroy for stage workspace'
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"stage"* ]]; then
+            # Select the stage workspace
+            terraform workspace select stage
+            # Destroy the infrastructure in the stage workspace
+            terraform destroy -auto-approve
+          fi
+        working-directory: ${{ env.WORKING_DIR }}
+      
+      # Destroy prod workspace if commit message contains "destroy" and "prod"
+      - name: 'Conditionally run Terraform destroy for prod workspace'
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"prod"* ]]; then
+            # Select the prod workspace
+            terraform workspace select prod
+            # Destroy the infrastructure in the prod workspace
+            terraform destroy -auto-approve
+          fi
+        working-directory: ${{ env.WORKING_DIR }}
