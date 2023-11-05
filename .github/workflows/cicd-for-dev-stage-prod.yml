@@ -1,11 +1,11 @@
-name: Deploy infrastructure for dev, stage, and prod
+name: Deploy infrastructure for dev and stage
 
+# Will automagicaly deploy dev and stage if changes are pushed to the respective git branches
 on:
   push:
     branches:
       - 'dev'
       - 'stage'
-      - 'prod'
     paths:
       - 'OpenTerraAS/infra/**'
   workflow_dispatch:
@@ -38,8 +38,6 @@ jobs:
             WORKSPACE="stage"
           elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
             WORKSPACE="dev"
-          elif [ "${{ github.ref }}" == "refs/heads/prod" ]; then
-            WORKSPACE="prod"
           fi
           terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
         working-directory: ${{ env.WORKING_DIR }}
