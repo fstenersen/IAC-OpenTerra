@@ -26,3 +26,5 @@ resource "azurerm_storage_container" "lagring_container" {
   storage_account_name  = azurerm_storage_account.lagring.name
   container_access_type = var.lagring_container_access_type
 }
+
+#Random change to trigger commit
