@@ -44,7 +44,7 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"default"* ]]; then
             # Select the default workspace
-            terraform workspace select default
+            terraform workspace select default && terraform init
             # Destroy the infrastructure in the default workspace
             terraform destroy -auto-approve
           fi
@@ -55,7 +55,7 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"dev"* ]]; then
             # Select the dev workspace
-            terraform workspace select dev
+            terraform workspace select dev && terraform init
             # Destroy the infrastructure in the dev workspace
             terraform destroy -auto-approve
           fi
@@ -66,7 +66,7 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* && "${{ steps.commit.outputs.message }}" == *"stage"* ]]; then
             # Select the stage workspace
-            terraform workspace select stage
+            terraform workspace select stage && terraform init
             # Destroy the infrastructure in the stage workspace
             terraform destroy -auto-approve
           fi
