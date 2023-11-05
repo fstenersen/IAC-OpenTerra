@@ -21,7 +21,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Call Terraform Validate
         uses: ./.github/workflows/validate_infra.yml
         with:
@@ -31,7 +31,7 @@ jobs:
     needs: validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Call Terraform Lint
         uses: ./.github/workflows/tflint.yml
 
@@ -40,7 +40,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
       - name: Initialize Terraform Workspace
