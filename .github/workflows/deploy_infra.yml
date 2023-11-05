@@ -29,7 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-
+      # Initialize Terraform
+      - name: Terraform init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIR }}
+      
       # Determine workspace based on the branch name
       - name: Set Terraform workspace
         run: |
@@ -40,12 +45,7 @@ jobs:
           terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
         working-directory: ${{ env.WORKING_DIR }}
 
-      # Initialize Terraform
-      - name: Terraform init
-        id: init
-        run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}
-      
+
       # Generate a plan for Terraform changes
       - name: Terraform plan
         id: plan
