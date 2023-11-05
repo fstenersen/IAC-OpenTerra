@@ -4,11 +4,13 @@ name: Deploy infrastructure
 
 # Controls when the workflow will run
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'OpenTerraAS/infra/**'
+  #push:
+  #  branches:
+   #   - 'main'
+    # paths:
+    #  - 'OpenTerraAS/infra/**'
+    # Commented out so that deployment to main will only happen if i want it to, actions for dev, stage and prod is in its own file.
+  workflow_dispatch:
 
 jobs:
   terraform:
