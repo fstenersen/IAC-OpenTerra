@@ -14,10 +14,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    environment: 
-      name: Production
-      url: ${{ steps.deploy.outputs.url }}
-    
     name: 'deploy infrastructure'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
