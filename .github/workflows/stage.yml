@@ -19,6 +19,7 @@ jobs:
       
 
   terraform-lint:
+      needs: terraform-validate
       name: Terraform Lint
       uses: ./.github/workflows/tflint.yml
       with:
