@@ -9,6 +9,7 @@ on:
     paths:
       - 'OpenTerraAS/infra/**'
       - '.github/workflows/**'
+  workflow_dispatch:
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -21,7 +22,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Call Terraform Validate
         uses: ./.github/workflows/validate_infra.yml
         with:
@@ -31,7 +32,7 @@ jobs:
     needs: validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Call Terraform Lint
         uses: ./.github/workflows/tflint.yml
 
@@ -40,13 +41,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Initialize Terraform Workspace
-        run: |
-          terraform init
-          terraform workspace select ${{ github.ref_name }} || terraform workspace new ${{ github.ref_name }}
+      - uses: actions/checkout@v4
       - name: Call Terraform Deploy
         uses: ./.github/workflows/deploy_infra.yml
         with:
