@@ -1,65 +1,61 @@
-name: Terraform CI/CD for dev, stage, and prod
+name: Deploy infrastructure
 
 on:
   push:
     branches:
+      - 'main'
       - 'dev'
       - 'stage'
       - 'prod'
     paths:
       - 'OpenTerraAS/infra/**'
-      - '.github/workflows/**'
-  workflow_dispatch:
-
-env:
-  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  WORKING_DIR: ./OpenTerraAS/infra
 
 jobs:
-  validate:
+  terraform:
     runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: ${{ steps.deploy.outputs.url }}
+    
+    name: 'deploy infrastructure'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      WORKING_DIR: ./OpenTerraAS/infra/
+      
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Initialize Terraform Workspace
-        run: |
-          cd ${{ env.WORKING_DIR }}
-          terraform init
-          terraform workspace select ${{ github.ref_name }} || terraform workspace new ${{ github.ref_name }}
-      - name: Terraform Validate
-        run: |
-          cd ${{ env.WORKING_DIR }}
-          terraform validate
 
-  lint:
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Terraform Lint
-        run: |
-          cd ${{ env.WORKING_DIR }}
-          tflint
+      # Initialize Terraform
+      - name: Terraform init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIR }}
 
-  deploy:
-    if: github.ref_name != 'prod'
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Initialize Terraform Workspace
+      # Determine workspace based on the branch name
+      - name: Set Terraform workspace
         run: |
-          cd ${{ env.WORKING_DIR }}
-          terraform init
-          terraform workspace select ${{ github.ref_name }} || terraform workspace new ${{ github.ref_name }}
-      - name: Terraform Plan and Apply
-        run: |
-          cd ${{ env.WORKING_DIR }}
-          terraform plan -out=tfplan
-          terraform apply -auto-approve tfplan
+          WORKSPACE="default"
+          if [ "${{ github.ref }}" == "refs/heads/stage" ]; then
+            WORKSPACE="stage"
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            WORKSPACE="dev"
+          elif [ "${{ github.ref }}" == "refs/heads/prod" ]; then
+            WORKSPACE="prod"
+          fi
+          terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
+        working-directory: ${{ env.WORKING_DIR }}
+
+      # Generate a plan for Terraform changes
+      - name: Terraform plan
+        id: plan
+        run: terraform plan
+        working-directory: ${{ env.WORKING_DIR }}
+      
+      # Apply Terraform changes
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.WORKING_DIR }}
