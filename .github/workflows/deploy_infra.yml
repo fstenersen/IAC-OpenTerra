@@ -1,15 +1,15 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy infrastructure
+name: Deploy infrastructure to prod or main
 
 # Controls when the workflow will run
 on:
-  #push:
-  #  branches:
-   #   - 'main'
-    # paths:
-    #  - 'OpenTerraAS/infra/**'
-    # Commented out so that deployment to main will only happen if i want it to, actions for dev, stage and prod is in its own file.
+  push:
+    branches:
+     - 'main'
+     - 'prod'
+    paths:
+      - 'OpenTerraAS/infra/**'
   workflow_dispatch:
 
 jobs:
@@ -28,6 +28,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v4
+
+
+      # Determine workspace based on the branch name
+      - name: Set Terraform workspace
+        run: |
+          WORKSPACE="default"
+          if [ "${{ github.ref }}" == "refs/heads/prod" ]; then
+            WORKSPACE="prod"
+          fi
+          terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
+        working-directory: ${{ env.WORKING_DIR }}
 
       # Initialize Terraform
       - name: Terraform init
