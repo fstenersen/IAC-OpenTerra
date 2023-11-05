@@ -9,6 +9,7 @@ on:
       - 'prod'
     paths:
       - 'OpenTerraAS/infra/**'
+  workflow_dispatch:
 
 jobs:
   terraform:
