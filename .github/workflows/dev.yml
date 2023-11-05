@@ -11,7 +11,7 @@ jobs:
       name: Validate terraform code in dev
       uses: ./.github/workflows/validate_infra.yml
       with:
-        WORKSPACE: stage
+        WORKSPACE: dev
       secrets:
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -23,7 +23,7 @@ jobs:
     name: Deploy development infrastructure
     uses: ./.github/workflows/deploy_infra.yml
     with:
-      WORKSPACE: stage
+      WORKSPACE: dev
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
