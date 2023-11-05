@@ -21,9 +21,15 @@ jobs:
   terraform-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Terraform Lint
         uses: ./.github/workflows/tflint.yml
+        with:
+          WORKSPACE: stage
+        secrets:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
   terraform-deploy:
     needs: terraform-lint
